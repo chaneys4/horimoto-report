@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f7f7f2">
+    <meta name="description" content="Import field report data and prepare a client-ready demonstration report.">
+    <title>Office Report Builder | Horimoto LLC</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="admin.css">
+    <script src="admin.js" defer></script>
+  </head>
+  <body>
+    <main class="page-shell">
+      <header class="topbar">
+        <a class="brand" href="index.html" aria-label="Horimoto LLC staff report dashboard">
+          <span class="brand-mark" aria-hidden="true">H</span>
+          <span class="brand-name">HORIMOTO <span>LLC</span></span>
+        </a>
+        <a class="back-link" href="index.html">← Staff form</a>
+      </header>
+
+      <section class="intro">
+        <div class="eyebrow">OFFICE WORKSPACE</div>
+        <h1>Prepare a client report</h1>
+        <p>Copy a staff email or text below. Review the imported details, add Japanese text if needed, then create a landscape report PDF.</p>
+      </section>
+
+      <section class="workflow-note" aria-label="How this office workflow works">
+        <span class="workflow-icon" aria-hidden="true">1</span>
+        <p><strong>Collect:</strong> Staff send reports to Horimoto by email or text.</p>
+        <span class="workflow-icon" aria-hidden="true">2</span>
+        <p><strong>Prepare:</strong> Paste the message here, check it, and add Japanese translations when needed.</p>
+        <span class="workflow-icon" aria-hidden="true">3</span>
+        <p><strong>Send:</strong> Review the final PDF and email it to the manufacturer or client.</p>
+      </section>
+
+      <section class="form-card import-card" aria-labelledby="import-heading">
+        <div class="section-heading">
+          <span class="step-number" aria-hidden="true">1</span>
+          <div>
+            <h2 id="import-heading">Import a staff report</h2>
+            <p>Paste the report message, or load the downloaded .txt backup.</p>
+          </div>
+        </div>
+        <label class="field" for="raw-report-input">
+          <span>Staff report text</span>
+          <textarea id="raw-report-input" rows="9" placeholder="Paste the full staff email or text report here."></textarea>
+        </label>
+        <div class="import-actions">
+          <label class="secondary-button file-button" for="raw-file-input">
+            <span aria-hidden="true">↑</span>
+            <span>Choose .txt report</span>
+            <input id="raw-file-input" type="file" accept=".txt,text/plain">
+          </label>
+          <button class="primary-button" id="import-report" type="button">
+            <span aria-hidden="true">↳</span>
+            <span>Fill report form</span>
+          </button>
+        </div>
+        <p class="import-help">The importer recognizes reports made by the Horimoto staff form. You can also fill or correct every field below by hand.</p>
+      </section>
+
+      <div class="status-message" id="admin-status" role="status" aria-live="polite" hidden></div>
+
+      <form id="client-report-form" novalidate>
+        <section class="form-card" aria-labelledby="event-heading">
+          <div class="section-heading">
+            <span class="step-number" aria-hidden="true">2</span>
+            <div>
+              <h2 id="event-heading">Review event details</h2>
+              <p>Check the staff information and identify who will receive the final report.</p>
+            </div>
+          </div>
+          <div class="admin-field-grid">
+            <label class="field"><span>Event name</span><input name="eventName" type="text" required></label>
+            <label class="field"><span>Store / location</span><input name="location" type="text" required></label>
+            <label class="field"><span>Staff name</span><input name="staffName" type="text" required></label>
+            <label class="field"><span>Date</span><input name="eventDate" type="text" required></label>
+            <label class="field"><span>Time</span><input name="eventTime" type="text"></label>
+            <label class="field"><span>Prepared for (manufacturer / client)</span><input name="clientName" type="text" placeholder="Optional"></label>
+          </div>
+        </section>
+
+        <section class="form-card" aria-labelledby="narrative-heading">
+          <div class="section-heading">
+            <span class="step-number" aria-hidden="true">3</span>
+            <div>
+              <h2 id="narrative-heading">Review observations</h2>
+              <p>Keep the staff's English text. Add an edited Japanese translation below if the client needs it.</p>
+            </div>
+          </div>
+          <div class="admin-field-grid one-column">
+            <label class="field"><span>Staff observations (English)</span><textarea name="narrativeEn" rows="5"></textarea></label>
+            <label class="field"><span>Japanese translation (optional)</span><textarea name="narrativeJa" rows="5" lang="ja" placeholder="Enter or paste a reviewed Japanese translation here."></textarea></label>
+          </div>
+        </section>
+
+        <section class="form-card" aria-labelledby="products-heading">
+          <div class="section-heading">
+            <span class="step-number" aria-hidden="true">4</span>
+            <div>
+              <h2 id="products-heading">Review product feedback</h2>
+              <p>Check each product. Add Japanese comments if needed.</p>
+            </div>
+          </div>
+          <div class="admin-product-list" id="admin-product-list"></div>
+          <button class="secondary-button" id="add-admin-product" type="button">＋ Add product</button>
+        </section>
+
+        <section class="form-card" aria-labelledby="photos-heading">
+          <div class="section-heading">
+            <span class="step-number" aria-hidden="true">5</span>
+            <div>
+              <h2 id="photos-heading">Add event photos</h2>
+              <p>Staff messages only include photo names. Add the actual photo files here for the PDF.</p>
+            </div>
+          </div>
+          <label class="upload-box admin-upload-box" for="admin-photo-input">
+            <span class="upload-icon" aria-hidden="true">＋</span>
+            <span class="upload-copy"><strong>Tap to add event photos</strong><span>Choose photos from your computer</span></span>
+            <span class="upload-action">Choose photos</span>
+            <input id="admin-photo-input" type="file" accept="image/*" multiple>
+          </label>
+          <p class="photo-summary" id="admin-photo-summary" aria-live="polite">No photos added.</p>
+          <div class="photo-grid" id="admin-photo-grid"></div>
+        </section>
+
+        <div class="form-actions">
+          <button class="primary-button generate-button" id="generate-client-report" type="submit">
+            <span aria-hidden="true">▤</span>
+            <span>Create client report</span>
+            <span aria-hidden="true">→</span>
+          </button>
+          <p class="action-hint">The PDF layout is set to landscape. Review it before sending it to the client.</p>
+        </div>
+      </form>
+
+      <section class="report-preview" id="client-preview" hidden aria-labelledby="client-preview-heading">
+        <div class="preview-toolbar">
+          <div>
+            <div class="eyebrow">FINAL REVIEW</div>
+            <h2 id="client-preview-heading">Client report preview</h2>
+          </div>
+          <button class="primary-button print-button" id="save-client-pdf" type="button">
+            <span aria-hidden="true">⇩</span>
+            <span>Save landscape PDF</span>
+          </button>
+        </div>
+        <p class="print-help">Landscape page size is set automatically. Choose “Save as PDF” as the destination.</p>
+        <article class="report-document" id="client-report-document"></article>
+      </section>
+
+      <footer class="page-footer">Office workspace · <a href="index.html">Back to staff form</a></footer>
+    </main>
+  </body>
+</html>

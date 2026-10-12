@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f7f7f2">
+    <meta name="description" content="A simple bilingual food demonstration report form.">
+    <title>Food Demonstration Report | Horimoto LLC</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <main class="page-shell">
+      <header class="topbar">
+        <a class="brand" href="#" aria-label="Horimoto LLC report dashboard">
+          <span class="brand-mark" aria-hidden="true">H</span>
+          <span class="brand-name">HORIMOTO <span>LLC</span></span>
+        </a>
+        <button class="language-toggle" id="language-toggle" type="button" aria-label="Switch interface language">
+          <span data-en="日本語" data-ja="English">日本語</span>
+        </button>
+      </header>
+
+      <section class="intro">
+        <div class="eyebrow" data-en="FIELD REPORT" data-ja="現場レポート">FIELD REPORT</div>
+        <h1 data-en="Food demonstration report" data-ja="試食販売 実施報告書">Food demonstration report</h1>
+        <p data-en="A few details, a few photos, and you're done." data-ja="必要事項と写真を入力するだけで、報告書が完成します。">A few details, a few photos, and you're done.</p>
+        <p class="entry-language-note" data-en="Enter all report details in English. The button above changes the screen language only." data-ja="報告書の内容はすべて英語で入力してください。上のボタンは画面表示のみを切り替えます。">Enter all report details in English. The button above changes the screen language only.</p>
+      </section>
+
+      <form id="report-form" novalidate>
+        <section class="form-card" aria-labelledby="details-heading">
+          <div class="section-heading">
+            <span class="step-number" aria-hidden="true">1</span>
+            <div>
+              <h2 id="details-heading" data-en="Event details" data-ja="実施概要">Event details</h2>
+              <p data-en="Tell us when and where the demonstration happened." data-ja="いつ、どこで試食販売を行ったか入力してください。">Tell us when and where the demonstration happened.</p>
+            </div>
+          </div>
+
+          <div class="field-grid">
+            <label class="field">
+              <span data-en="Event name" data-ja="催事名">Event name</span>
+              <input name="eventName" type="text" autocomplete="off" required placeholder="e.g. Kagoshima Fair" data-placeholder-en="e.g. Kagoshima Fair" data-placeholder-ja="例：鹿児島フェア">
+            </label>
+            <label class="field">
+              <span data-en="Store or location" data-ja="実施店舗・場所">Store or location</span>
+              <input name="location" type="text" autocomplete="organization" required placeholder="e.g. Tokyo Central Gardena" data-placeholder-en="e.g. Tokyo Central Gardena" data-placeholder-ja="例：Tokyo Central Gardena">
+            </label>
+            <label class="field">
+              <span data-en="Staff name" data-ja="担当者">Staff name</span>
+              <input name="staffName" type="text" autocomplete="name" required placeholder="Your name" data-placeholder-en="Your name" data-placeholder-ja="お名前">
+            </label>
+            <label class="field">
+              <span data-en="Date" data-ja="実施日">Date</span>
+              <input name="eventDate" type="date" required>
+            </label>
+            <label class="field">
+              <span data-en="Time (optional)" data-ja="実施時間（任意）">Time (optional)</span>
+              <input name="eventTime" type="text" placeholder="e.g. 10:00 AM–5:00 PM" data-placeholder-en="e.g. 10:00 AM–5:00 PM" data-placeholder-ja="例：10:00～17:00">
+            </label>
+          </div>
+        </section>
+
+        <section class="form-card" aria-labelledby="observations-heading">
+          <div class="section-heading">
+            <span class="step-number" aria-hidden="true">2</span>
+            <div>
+              <h2 id="observations-heading" data-en="What happened?" data-ja="実施内容・所感">What happened?</h2>
+              <p data-en="Share customer reactions, popular products, or anything worth noting." data-ja="お客様の反応、人気商品、気づいたことなどを入力してください。">Share customer reactions, popular products, or anything worth noting.</p>
+            </div>
+          </div>
+          <div class="field">
+            <label for="narrative" data-en="Your observations (English)" data-ja="実施内容・所感（英語）">Your observations (English)</label>
+            <textarea id="narrative" name="narrative" rows="6" placeholder="What did customers think? Which products were popular? (English)" data-placeholder-en="What did customers think? Which products were popular? (English)" data-placeholder-ja="お客様の反応や人気商品などを英語で入力してください。"></textarea>
+            <p class="privacy-note" id="translation-notice">
+              <span aria-hidden="true">✓</span>
+              <span data-en="Your report will use the English text you enter. No automatic translation is used." data-ja="入力した英語の文章をそのまま報告書に使用します。自動翻訳は行いません。">Your report will use the English text you enter. No automatic translation is used.</span>
+            </p>
+          </div>
+        </section>
+
+        <section class="form-card" aria-labelledby="products-heading">
+          <div class="section-heading">
+            <span class="step-number" aria-hidden="true">3</span>
+            <div>
+              <h2 id="products-heading" data-en="Products sampled" data-ja="商品別のお客様の反応">Products sampled</h2>
+              <p data-en="Add a product to record its price, sample use, and customer feedback." data-ja="商品ごとに価格、試食使用量、お客様の反応を入力できます。">Add a product to record its price, sample use, and customer feedback.</p>
+            </div>
+          </div>
+          <div class="product-entry-list" id="product-entry-list"></div>
+          <button class="secondary-button" id="add-product" type="button">
+            <span aria-hidden="true">＋</span>
+            <span data-en="Add another product" data-ja="商品を追加">Add another product</span>
+          </button>
+        </section>
+
+        <section class="form-card" aria-labelledby="photos-heading">
+          <div class="section-heading">
+            <span class="step-number" aria-hidden="true">4</span>
+            <div>
+              <h2 id="photos-heading" data-en="Add event photos" data-ja="イベント写真を追加">Add event photos</h2>
+              <p data-en="Photos are grouped together on their own report page." data-ja="写真は報告書の写真ページにまとめて掲載されます。">Photos are grouped together on their own report page.</p>
+            </div>
+          </div>
+
+          <label class="upload-box" for="photo-input" id="upload-box">
+            <span class="upload-icon" aria-hidden="true">＋</span>
+            <span class="upload-copy">
+              <strong data-en="Tap to add photos" data-ja="タップして写真を追加">Tap to add photos</strong>
+              <span data-en="Choose one or more photos from your phone" data-ja="スマートフォンから写真を選択できます">Choose one or more photos from your phone</span>
+            </span>
+            <span class="upload-action" data-en="Choose photos" data-ja="写真を選択">Choose photos</span>
+            <input id="photo-input" type="file" accept="image/jpeg,image/png,image/webp,image/heic,image/heif" multiple>
+          </label>
+          <div class="photo-summary" id="photo-summary" aria-live="polite"></div>
+          <div class="photo-grid" id="photo-grid"></div>
+        </section>
+
+        <div class="form-actions">
+          <p class="required-note"><span aria-hidden="true">*</span> <span data-en="Required fields" data-ja="必須項目">Required fields</span></p>
+          <button class="primary-button" type="submit" id="create-report">
+            <span aria-hidden="true">▤</span>
+            <span data-en="Create report" data-ja="報告書を作成">Create report</span>
+            <span aria-hidden="true">→</span>
+          </button>
+          <p class="action-hint" data-en="You can review it before saving as a PDF." data-ja="PDF保存の前に内容を確認できます。">You can review it before saving as a PDF.</p>
+        </div>
+      </form>
+
+      <div class="status-message" id="status-message" role="status" aria-live="polite" hidden></div>
+
+      <section class="report-preview" id="report-preview" hidden aria-labelledby="preview-heading">
+        <div class="preview-toolbar">
+          <div>
+            <div class="eyebrow" data-en="READY TO REVIEW" data-ja="内容をご確認ください">READY TO REVIEW</div>
+            <h2 id="preview-heading" data-en="Your report is ready" data-ja="報告書ができました">Your report is ready</h2>
+          </div>
+          <button class="primary-button print-button" id="print-report" type="button">
+            <span aria-hidden="true">⇩</span>
+            <span data-en="Save as PDF" data-ja="PDFとして保存">Save as PDF</span>
+          </button>
+        </div>
+        <p class="print-help" data-en="Landscape page size is set automatically. In the print window, choose “Save as PDF” as the destination." data-ja="横向きの用紙設定は自動で適用されます。印刷画面で保存先に「PDFとして保存」を選択してください。">Landscape page size is set automatically. In the print window, choose “Save as PDF” as the destination.</p>
+        <section class="send-report-panel" aria-labelledby="send-report-heading">
+          <h3 id="send-report-heading" data-en="Send your report to Horimoto" data-ja="報告書をHorimotoに送信">Send your report to Horimoto</h3>
+          <p data-en="Choose email (recommended) or text. Your report details will be filled in. Check the message, then tap Send." data-ja="メール（おすすめ）またはテキストを選んでください。報告内容が自動入力されます。内容を確認して「送信」をタップしてください。">Choose email (recommended) or text. Your report details will be filled in. Check the message, then tap Send.</p>
+          <div class="send-report-actions">
+            <button class="primary-button send-button" id="send-email" type="button">
+              <span aria-hidden="true">✉</span>
+              <span data-en="Email report (recommended)" data-ja="メールで送信（おすすめ）">Email report (recommended)</span>
+            </button>
+            <button class="secondary-button send-button" id="send-text" type="button">
+              <span aria-hidden="true">▤</span>
+              <span data-en="Text report" data-ja="テキストで送信">Text report</span>
+            </button>
+            <button class="secondary-button send-button download-button" id="download-raw" type="button">
+              <span aria-hidden="true">⇩</span>
+              <span data-en="Download raw data" data-ja="入力データを保存">Download raw data</span>
+            </button>
+          </div>
+          <p class="send-destination">
+            <span data-en="Email:" data-ja="メール：">Email:</span>
+            <strong>horimotoandassociates@gmail.com</strong>
+            <span aria-hidden="true"> · </span>
+            <span data-en="Text:" data-ja="テキスト：">Text:</span>
+            <strong>+1 (323) 790-4678</strong>
+          </p>
+          <p class="send-photo-note" data-en="Photos are listed in the message but are not attached. Send event photos separately if needed." data-ja="写真のファイル名は記載されますが、写真自体は添付されません。必要な場合は写真を別途送信してください。">Photos are listed in the message but are not attached. Send event photos separately if needed.</p>
+        </section>
+        <article class="report-document" id="report-document" aria-live="polite"></article>
+      </section>
+
+      <footer class="page-footer">Horimoto LLC <span aria-hidden="true">·</span> <span data-en="Food Demonstration Report" data-ja="試食販売 実施報告書">Food Demonstration Report</span> <span aria-hidden="true">·</span> <a class="office-link" href="admin.html" data-en="Office report builder" data-ja="事務所用レポート作成">Office report builder</a></footer>
+    </main>
+  </body>
+</html>
